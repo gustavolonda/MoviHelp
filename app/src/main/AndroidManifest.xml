@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoviHelp">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

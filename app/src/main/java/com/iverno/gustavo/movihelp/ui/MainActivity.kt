@@ -1,7 +1,8 @@
-package com.iverno.gustavo.movihelp
+package com.iverno.gustavo.movihelp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.iverno.gustavo.movihelp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

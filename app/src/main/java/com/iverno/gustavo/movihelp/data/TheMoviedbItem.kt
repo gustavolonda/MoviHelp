@@ -10,29 +10,18 @@ data class TheMoviedbItem(@SerializedName("id")            val id: Int,
                           @SerializedName("backdrop_path") val backdropPath: String?,
                           @SerializedName("vote_average")  val voteAverage: Double,
                           @SerializedName("popularity")    val popularity: Double,
-                          @SerializedName("genre_ids")     val genderIDs: List<Int>,
                           @SerializedName("overview")      val description: String,
                           @SerializedName("media_type")    val mediaType: String):
     Serializable {
 
-    val genders: List<String> = mutableListOf()
-
-    fun getGenderString(): String {
-        val stringBuilder = StringBuilder()
-        for (gender in genders) {
-            stringBuilder.append(gender)
-            stringBuilder.append(", ")
-        }
-        return stringBuilder.toString().removeSuffix(", ")
-    }
-    fun getbackdropUrlString(): String {
+    fun getBackdropUrlString(): String {
         return StringBuilder().append(Constants.IMAGE_BASE_URL)
                             .append(backdropPath)
                             .toString()
     }
     fun getPosterPathUrlString(): String {
         return StringBuilder().append(Constants.IMAGE_BASE_URL)
-            .append(posterPath)
-            .toString()
+                            .append(posterPath)
+                            .toString()
     }
 }
