@@ -8,8 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.iverno.gustavo.movihelp.ui.MainActivity
 import com.iverno.gustavo.movihelp.databinding.FragmentStartAppBinding
+import com.iverno.gustavo.movihelp.ui.home.HomeFragment
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.subjects.PublishSubject
 import java.lang.Exception
-
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 
 /**
  * A simple [Fragment] subclass.
@@ -19,13 +24,13 @@ import java.lang.Exception
 class StartAppFragment : Fragment() {
     private var parentActity: MainActivity? = null
     private lateinit var binding: FragmentStartAppBinding
-
-
+    private val compositeDisposableOnPause = CompositeDisposable()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentStartAppBinding.inflate(inflater,container, false)
+        binding.actionStartSincro.observableClickListener().subscribe()
         return binding.root
     }
 
@@ -50,4 +55,16 @@ class StartAppFragment : Fragment() {
             e.fillInStackTrace()
         }
     }
+
+    fun View.observableClickListener(): Observable<View> {
+        val publishSubject: PublishSubject<View> = PublishSubject.create()
+        this.setOnClickListener { v ->
+            val action = StartAppFragmentDirections.actionStartAppFragmentToHomeFragment()
+            findNavController().navigate(action)
+
+            publishSubject.onNext(v)
+         }
+        return publishSubject
+    }
+
 }

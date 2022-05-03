@@ -9,5 +9,13 @@
         android:id="@+id/startAppFragment"
         android:name="com.iverno.gustavo.movihelp.ui.start.StartAppFragment"
         android:label="fragment_start_app"
-        tools:layout="@layout/fragment_start_app" />
+        tools:layout="@layout/fragment_start_app" >
+        <action
+            android:id="@+id/action_startAppFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.iverno.gustavo.movihelp.ui.home.HomeFragment"
+        android:label="HomeFragment" />
 </navigation>
