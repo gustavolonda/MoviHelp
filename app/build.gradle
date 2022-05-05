@@ -22,6 +22,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+        }
+        customDebuggableBuildType {
+            debuggable true
+        }
+        release {
+            debuggable false
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -81,6 +90,9 @@ dependencies {
 
     // for adding recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    compileOnly "org.projectlombok:lombok:1.18.24"
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
 
 

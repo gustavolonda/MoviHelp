@@ -1,10 +1,8 @@
-package com.iverno.gustavo.movihelp.ui.home
+package com.iverno.gustavo.movihelp.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.iverno.gustavo.movihelp.R
-import com.iverno.gustavo.movihelp.databinding.FragmentHomeBinding
 import com.iverno.gustavo.movihelp.databinding.ListItemTheMovieDetailBinding
 
 class TheMovieDBItemDetailAdapter (private val mList: List<TheMovieDBItemDetailViewModel>) : RecyclerView.Adapter<TheMovieDBItemDetailAdapter.ViewHolder>() {

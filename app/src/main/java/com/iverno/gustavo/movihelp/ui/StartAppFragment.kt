@@ -1,20 +1,22 @@
-package com.iverno.gustavo.movihelp.ui.start
+package com.iverno.gustavo.movihelp.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.os.StrictMode
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.iverno.gustavo.movihelp.ui.MainActivity
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.iverno.gustavo.movihelp.databinding.FragmentStartAppBinding
-import com.iverno.gustavo.movihelp.ui.home.HomeFragment
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.lang.Exception
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.iverno.gustavo.movihelp.repository.TheMovieDBRepository
 
 /**
  * A simple [Fragment] subclass.
@@ -22,8 +24,9 @@ import androidx.navigation.fragment.findNavController
  * create an instance of this fragment.
  */
 class StartAppFragment : Fragment() {
-    private var parentActity: MainActivity? = null
+    private lateinit var parentActity: MainActivity
     private lateinit var binding: FragmentStartAppBinding
+    private val theMovieDBViewModel: TheMovieDBViewModel by viewModels()
     private val compositeDisposableOnPause = CompositeDisposable()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +34,13 @@ class StartAppFragment : Fragment() {
     ): View? {
         binding = FragmentStartAppBinding.inflate(inflater,container, false)
         binding.actionStartSincro.observableClickListener().subscribe()
+        val theMovieDBRepository= TheMovieDBRepository()
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        theMovieDBViewModel.getTheMoviedbLiveData(parentActity).observe(viewLifecycleOwner, Observer { currentList ->
+            Log.e("Gus", currentList.size.toString())
+        })
+
         return binding.root
     }
 
@@ -50,7 +60,7 @@ class StartAppFragment : Fragment() {
          */
         super.onAttach(context)
         try {
-            parentActity = context as MainActivity?
+            parentActity = context as MainActivity
         }catch (e: Exception){
             e.fillInStackTrace()
         }
@@ -59,7 +69,8 @@ class StartAppFragment : Fragment() {
     fun View.observableClickListener(): Observable<View> {
         val publishSubject: PublishSubject<View> = PublishSubject.create()
         this.setOnClickListener { v ->
-            val action = StartAppFragmentDirections.actionStartAppFragmentToHomeFragment()
+            val action =
+                com.iverno.gustavo.movihelp.ui.StartAppFragmentDirections.actionStartAppFragmentToHomeFragment()
             findNavController().navigate(action)
 
             publishSubject.onNext(v)

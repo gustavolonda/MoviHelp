@@ -1,4 +1,4 @@
-package com.iverno.gustavo.movihelp.ui.home
+package com.iverno.gustavo.movihelp.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.iverno.gustavo.movihelp.R
 import com.iverno.gustavo.movihelp.databinding.FragmentHomeBinding
-import com.iverno.gustavo.movihelp.ui.MainActivity
 import io.reactivex.rxjava3.core.Observable
 
 

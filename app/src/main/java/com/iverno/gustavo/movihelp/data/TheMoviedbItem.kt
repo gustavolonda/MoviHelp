@@ -19,7 +19,7 @@ data class TheMoviedbItem(@SerializedName("id")            val id: Int,
                             .append(backdropPath)
                             .toString()
     }
-    fun getPosterPathUrlString(): String {
+    fun getPosterUrlString(): String {
         return StringBuilder().append(Constants.IMAGE_BASE_URL)
                             .append(posterPath)
                             .toString()
