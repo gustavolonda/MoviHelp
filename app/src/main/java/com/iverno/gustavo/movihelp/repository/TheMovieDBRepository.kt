@@ -2,11 +2,10 @@ package com.iverno.gustavo.movihelp.repository
 
 import android.content.Context
 import android.util.Log
-import com.google.gson.Gson
 import com.iverno.gustavo.movihelp.api.ApiTheMovieDBClient
 import com.iverno.gustavo.movihelp.api.ApiTheMovieDBService
-import com.iverno.gustavo.movihelp.bo.ResultResponse
-import com.iverno.gustavo.movihelp.bo.StatusResponseDomain
+import com.iverno.gustavo.movihelp.bo.StatusResponseDomain.ERROR
+import com.iverno.gustavo.movihelp.bo.StatusResponseDomain.SUCCESSFUL
 import com.iverno.gustavo.movihelp.config.Constants.ID_SELECTED_LIST
 import com.iverno.gustavo.movihelp.config.Constants.BEARER
 import com.iverno.gustavo.movihelp.config.Constants.TOKEN
@@ -25,7 +24,7 @@ class TheMovieDBRepository {
             if (!GeneralUtil.checkForInternet(context)){
                 val errorMessage = "Please check the internet connection"
                 theMovieDBListViewModelResponse = TheMovieDBListViewModelResponse.Builder()
-                                                                .status(StatusResponseDomain.ERROR)
+                                                                .status(ERROR)
                                                                 .errorMessage(errorMessage)
                                                                 .build()
                 return theMovieDBListViewModelResponse
@@ -40,22 +39,25 @@ class TheMovieDBRepository {
                 val response = call.execute()
                 if (response.isSuccessful){
                     theMovieDBListViewModelResponse = TheMovieDBListViewModelResponse.Builder()
-                        .status(StatusResponseDomain.SUCCESSFUL)
-                        .theMovieDBItemList(response.body()?.results)
-                        .build()
+                                                                                    .status(SUCCESSFUL)
+                                                                                    .theMovieDBItemList(response.body()?.theMovieDBItemList)
+                                                                                    .currentPage(page)
+                                                                                    .totalPages(response.body()?.totalPages)
+                                                                                    .totalResults(response.body()?.totalResults)
+                                                                                    .build()
                     return theMovieDBListViewModelResponse
                 }
                 Log.e("Gus", response.message())
 
                 theMovieDBListViewModelResponse =  TheMovieDBListViewModelResponse.Builder()
-                                                                    .status(StatusResponseDomain.ERROR)
+                                                                    .status(ERROR)
                                                                     .errorMessage(errorMessage)
                                                                     .build()
                 return theMovieDBListViewModelResponse
             }catch(e: Exception){
                 Log.e("Gus", e.stackTraceToString())
                 theMovieDBListViewModelResponse = TheMovieDBListViewModelResponse.Builder()
-                                                                                    .status(StatusResponseDomain.ERROR)
+                                                                                    .status(ERROR)
                                                                                     .errorMessage(errorMessage)
                                                                                     .build()
                 return      theMovieDBListViewModelResponse

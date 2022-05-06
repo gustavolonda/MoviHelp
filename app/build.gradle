@@ -54,6 +54,7 @@ ext {
     nav_version = "2.4.1"
     rxjava_version = "3.0.1"
     androidrx_version = "3.0.0"
+    room_version = "2.4.2"
 
 }
 apply plugin: 'kotlin-kapt'
@@ -91,9 +92,10 @@ dependencies {
     // for adding recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
-    compileOnly "org.projectlombok:lombok:1.18.24"
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
-
+    //Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation("androidx.room:room-rxjava3:$room_version")
 
 
 }
