@@ -1,25 +1,25 @@
-package com.iverno.gustavo.movihelp.ui
+package com.iverno.gustavo.movihelp.view.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+
 import com.iverno.gustavo.movihelp.databinding.FragmentStartAppBinding
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.lang.Exception
 import androidx.navigation.fragment.findNavController
-import com.iverno.gustavo.movihelp.repository.TheMovieDBRepository
 import com.iverno.gustavo.movihelp.bo.StatusResponseDomain.SUCCESSFUL
 import com.iverno.gustavo.movihelp.db.AppDatabase
+import com.iverno.gustavo.movihelp.viewmodel.TheMovieDBViewModel
+import com.iverno.gustavo.movihelp.view.activities.MainActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -29,7 +29,7 @@ import com.iverno.gustavo.movihelp.db.AppDatabase
 class StartAppFragment : Fragment() {
     private lateinit var parentActity: MainActivity
     private lateinit var binding: FragmentStartAppBinding
-    private val viewModel: TheMovieDBViewModel by activityViewModels()
+    private val viewModel: TheMovieDBViewModel by viewModels()
     private val compositeDisposableOnPause = CompositeDisposable()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +37,6 @@ class StartAppFragment : Fragment() {
     ): View? {
         binding = FragmentStartAppBinding.inflate(inflater,container, false)
         binding.actionStartSincro.observableClickListener().subscribe()
-        val theMovieDBRepository= TheMovieDBRepository()
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
         var dataBaseInstance = AppDatabase.getDatabasenIstance(parentActity)
         viewModel?.setInstanceOfDb(dataBaseInstance)
         observerViewModel()
@@ -47,12 +44,20 @@ class StartAppFragment : Fragment() {
         return binding.root
     }
     private fun observerViewModel() {
-        viewModel?.getTheMoviedbLiveData()?.observe(parentActity, Observer {
-            if (it.status.equals(SUCCESSFUL)){
-                Log.e("Gust", it.theMovieDBItemList?.size.toString())
-                Log.e("Gust", it.currentPage.toString())
-                Log.e("Gust", it.totalPages.toString())
+        viewModel?.getTheMoviedbLiveData()?.observe(parentActity, Observer { response ->
+            if (response.status.equals(SUCCESSFUL)){
+                Log.e("Gust", response.theMovieDBItemList?.size.toString())
+                Log.e("Gust", response.currentPage.toString())
+                Log.e("Gust", response.totalPages.toString())
+                if (response.theMovieDBItemList?.size!! > 0){
+
+                    findNavController().navigateUp()
+                    val action =
+                        com.iverno.gustavo.movihelp.view.fragments.StartAppFragmentDirections.actionStartAppFragmentToHomeFragment()
+                    findNavController().navigate(action)
+                }
             }
+
 
         })
     }
@@ -81,12 +86,8 @@ class StartAppFragment : Fragment() {
     fun View.observableClickListener(): Observable<View> {
         val publishSubject: PublishSubject<View> = PublishSubject.create()
         this.setOnClickListener { v ->
-            /*val action =
-                com.iverno.gustavo.movihelp.ui.StartAppFragmentDirections.actionStartAppFragmentToHomeFragment()
-            findNavController().navigate(action)
-
-            publishSubject.onNext(v)*/
             viewModel.saveDownloadedTheMovie(parentActity,1)
+
          }
         return publishSubject
     }

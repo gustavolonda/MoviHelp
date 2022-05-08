@@ -55,6 +55,7 @@ ext {
     rxjava_version = "3.0.1"
     androidrx_version = "3.0.0"
     room_version = "2.4.2"
+    picasso_version = "2.71828"
 
 }
 apply plugin: 'kotlin-kapt'
@@ -96,6 +97,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation("androidx.room:room-rxjava3:$room_version")
+
+    //Picasso
+    implementation "com.squareup.picasso:picasso:$picasso_version"
 
 
 }

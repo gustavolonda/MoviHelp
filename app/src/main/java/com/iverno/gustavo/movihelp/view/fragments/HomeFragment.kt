@@ -1,4 +1,4 @@
-package com.iverno.gustavo.movihelp.ui
+package com.iverno.gustavo.movihelp.view.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -7,8 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.iverno.gustavo.movihelp.R
 import com.iverno.gustavo.movihelp.databinding.FragmentHomeBinding
+import com.iverno.gustavo.movihelp.db.AppDatabase
+import com.iverno.gustavo.movihelp.view.adapters.TheMovieDBItemDetailAdapter
+import com.iverno.gustavo.movihelp.viewmodel.TheMovieDBViewModel
+import com.iverno.gustavo.movihelp.view.activities.MainActivity
 import io.reactivex.rxjava3.core.Observable
 
 
@@ -22,6 +29,8 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var theMivieDBType:Array<String> = emptyArray()
     private var theMivieDBCategory:Array<String> = emptyArray()
+    private val viewModel: TheMovieDBViewModel by viewModels()
+    private var theMovieDBItemDetailAdapter: TheMovieDBItemDetailAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +48,24 @@ class HomeFragment : Fragment() {
         binding.spinnerCategory.adapter  = ArrayAdapter(parentActity,
                                                     android.R.layout.simple_spinner_item,
                                                     theMivieDBCategory)
+
+        var dataBaseInstance = AppDatabase.getDatabasenIstance(parentActity)
+        viewModel?.setInstanceOfDb(dataBaseInstance)
+        observerViewModel()
+        theMovieDBItemDetailAdapter = TheMovieDBItemDetailAdapter()
+        binding.recyclerview.adapter = theMovieDBItemDetailAdapter
+
+        viewModel.getTheMovieItemListFromDataBase()
+        binding.swipeToRefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
+            override fun onRefresh() {
+
+
+                binding.swipeToRefresh.isRefreshing = false
+            }
+        })
+
+
+
         return binding.root
     }
 
@@ -89,6 +116,12 @@ class HomeFragment : Fragment() {
                                             binding.spinnerType.onItemSelectedListener = null
                                         }
         }
+    }
+
+    private fun observerViewModel() {
+        viewModel?.getTheMoviedbLiveData()?.observe(parentActity, Observer { response ->
+            response.theMovieDBItemList?.let { theMovieDBItemDetailAdapter?.setListItem(it) }
+        })
     }
 
 

@@ -10,10 +10,9 @@ import com.iverno.gustavo.movihelp.config.Constants.ID_SELECTED_LIST
 import com.iverno.gustavo.movihelp.config.Constants.BEARER
 import com.iverno.gustavo.movihelp.config.Constants.TOKEN
 import com.iverno.gustavo.movihelp.config.Constants.API_BASE_URL
-import com.iverno.gustavo.movihelp.ui.TheMovieDBListViewModelResponse
+import com.iverno.gustavo.movihelp.data.TheMovieDBListViewModelResponse
 import com.iverno.gustavo.movihelp.util.GeneralUtil
 import java.lang.Exception
-import java.util.*
 
 class TheMovieDBRepository {
      companion object {

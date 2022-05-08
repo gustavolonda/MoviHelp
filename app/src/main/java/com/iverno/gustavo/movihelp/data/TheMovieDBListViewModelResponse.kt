@@ -1,9 +1,6 @@
-package com.iverno.gustavo.movihelp.ui
+package com.iverno.gustavo.movihelp.data
 
-import com.google.gson.annotations.SerializedName
-import com.iverno.gustavo.movihelp.data.TheMoviedbItem
-
-class TheMovieDBListViewModelResponse private constructor(builder: TheMovieDBListViewModelResponse.Builder){
+class TheMovieDBListViewModelResponse private constructor(builder: Builder){
     val status : String?
     val errorMessage : String?
     var message : String?

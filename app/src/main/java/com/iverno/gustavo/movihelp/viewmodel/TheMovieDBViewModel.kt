@@ -1,4 +1,4 @@
-package com.iverno.gustavo.movihelp.ui
+package com.iverno.gustavo.movihelp.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -6,12 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.iverno.gustavo.movihelp.bo.StatusResponseDomain.SUCCESSFUL
 import com.iverno.gustavo.movihelp.bo.StatusResponseDomain.ERROR
-import com.iverno.gustavo.movihelp.data.TheMoviedbItem
 import com.iverno.gustavo.movihelp.db.AppDatabase
 import com.iverno.gustavo.movihelp.repository.TheMovieDBRepository.Companion.getTheMovieDBItemList
+import com.iverno.gustavo.movihelp.data.TheMovieDBListViewModelResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers

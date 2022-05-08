@@ -7,15 +7,17 @@
 
     <fragment
         android:id="@+id/startAppFragment"
-        android:name="com.iverno.gustavo.movihelp.ui.StartAppFragment"
+        android:name="com.iverno.gustavo.movihelp.view.fragments.StartAppFragment"
         android:label="fragment_start_app"
         tools:layout="@layout/fragment_start_app" >
+
         <action
             android:id="@+id/action_startAppFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.iverno.gustavo.movihelp.ui.HomeFragment"
-        android:label="HomeFragment" />
+        android:name="com.iverno.gustavo.movihelp.view.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 </navigation>
