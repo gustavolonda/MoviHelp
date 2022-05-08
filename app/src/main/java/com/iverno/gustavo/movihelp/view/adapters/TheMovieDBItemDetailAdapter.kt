@@ -20,7 +20,6 @@ class TheMovieDBItemDetailAdapter () : RecyclerView.Adapter<TheMovieDBItemDetail
 
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val itemsViewModel = mList[position]
         holder.bind(itemsViewModel)
 
@@ -31,17 +30,17 @@ class TheMovieDBItemDetailAdapter () : RecyclerView.Adapter<TheMovieDBItemDetail
     }
 
     fun setListItem(mList: List<TheMoviedbItem>){
-         this.mList = mList
+        this.mList = mList
         this.notifyDataSetChanged()
     }
 
-    // Holds the views for adding it to image and text
+    // Holds the vie czxdfws for adding it to image and text
     class ViewHolder(val binding: ListItemTheMovieDetailBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(itemViewModel: TheMoviedbItem) {
             binding.mViewModel = itemViewModel
             val picasso = Picasso.get()
             picasso.load(itemViewModel.getBackdropUrlString())
-                                .error(R.drawable.error_loading)
+                                .error(R.drawable.ic_error_24)
                                 .placeholder(R.drawable.no_image)
                                 .into(binding.imageView)
 

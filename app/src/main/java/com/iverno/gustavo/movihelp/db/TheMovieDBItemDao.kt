@@ -5,6 +5,12 @@ import com.iverno.gustavo.movihelp.config.Constants.THE_MOVIE_DB_ITEM_TABLE_NAME
 import com.iverno.gustavo.movihelp.data.TheMoviedbItem
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import androidx.sqlite.db.SupportSQLiteQuery
+
+import androidx.room.RawQuery
+
+
+
 
 @Dao
  interface TheMovieDBItemDao {
@@ -22,4 +28,7 @@ import io.reactivex.rxjava3.core.Single
 
     @Update
     fun updateTheMoviedbItem(movie:TheMoviedbItem)
+
+   @RawQuery
+   fun getTheMoviedbItem(query: SupportSQLiteQuery): Single<List<TheMoviedbItem>>
 }

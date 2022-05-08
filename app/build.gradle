@@ -88,6 +88,7 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
     implementation "io.reactivex.rxjava3:rxkotlin:$rxjava_version"
+    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava3:rxandroid:$androidrx_version"
 
     // for adding recyclerview

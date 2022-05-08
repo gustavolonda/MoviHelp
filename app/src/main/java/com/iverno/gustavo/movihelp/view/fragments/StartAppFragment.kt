@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 
@@ -40,22 +41,21 @@ class StartAppFragment : Fragment() {
         var dataBaseInstance = AppDatabase.getDatabasenIstance(parentActity)
         viewModel?.setInstanceOfDb(dataBaseInstance)
         observerViewModel()
-        viewModel.getTheMovieItemListFromDataBase()
         return binding.root
     }
     private fun observerViewModel() {
         viewModel?.getTheMoviedbLiveData()?.observe(parentActity, Observer { response ->
             if (response.status.equals(SUCCESSFUL)){
-                Log.e("Gust", response.theMovieDBItemList?.size.toString())
-                Log.e("Gust", response.currentPage.toString())
-                Log.e("Gust", response.totalPages.toString())
                 if (response.theMovieDBItemList?.size!! > 0){
 
                     findNavController().navigateUp()
-                    val action =
-                        com.iverno.gustavo.movihelp.view.fragments.StartAppFragmentDirections.actionStartAppFragmentToHomeFragment()
+                    val action = StartAppFragmentDirections.actionStartAppFragmentToHomeFragment()
                     findNavController().navigate(action)
                 }
+            }
+            else
+            {
+                Toast.makeText(parentActity, response.errorMessage, Toast.LENGTH_LONG).show()
             }
 
 
@@ -86,7 +86,8 @@ class StartAppFragment : Fragment() {
     fun View.observableClickListener(): Observable<View> {
         val publishSubject: PublishSubject<View> = PublishSubject.create()
         this.setOnClickListener { v ->
-            viewModel.saveDownloadedTheMovie(parentActity,1)
+            viewModel.setIsDoewnloading(true)
+            viewModel.saveDownloadedTheMovie(parentActity,1,"","","")
 
          }
         return publishSubject
