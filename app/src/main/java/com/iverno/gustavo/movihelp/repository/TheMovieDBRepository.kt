@@ -93,7 +93,7 @@ class TheMovieDBRepository {
              }
 
              var typeSearch = ""
-             if (type != null && !type.isEmpty()){
+             if (type != null && !type.isEmpty() && type != "All"){
                  if (!textSearch.isEmpty())
                      query = query.and()
                  else
@@ -125,8 +125,6 @@ class TheMovieDBRepository {
 
 
              }
-             Log.e("GusQuery",query.toString())
-
              var simpleSQLiteQuery = SimpleSQLiteQuery(query.toString())
              return simpleSQLiteQuery
          }
