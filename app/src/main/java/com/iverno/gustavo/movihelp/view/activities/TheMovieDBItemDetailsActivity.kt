@@ -27,5 +27,8 @@ class TheMovieDBItemDetailsActivity : AppCompatActivity() {
         var  parms = getIntent().getBundleExtra(TheMovieDBItemDetailsFragment.PARAMS)
         idItem = parms?.getInt(TheMovieDBItemDetailsFragment.ID_THE_MOVIE_ITEM,0) ?:0
     }
+    override fun onBackPressed(){
+        this.finish()
+    }
 
 }
