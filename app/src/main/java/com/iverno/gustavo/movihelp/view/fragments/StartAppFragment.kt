@@ -51,12 +51,14 @@ class StartAppFragment : Fragment() {
                     val action = StartAppFragmentDirections.actionStartAppFragmentToHomeFragment()
                     findNavController().navigate(action)
                 }
+
             }
             else
             {
                 Toast.makeText(parentActity, response.errorMessage, Toast.LENGTH_LONG).show()
-            }
 
+            }
+            if (parentActity != null) parentActity.hideProgressBar()
 
         })
     }
@@ -85,7 +87,8 @@ class StartAppFragment : Fragment() {
     fun View.observableClickListener(): Observable<View> {
         val publishSubject: PublishSubject<View> = PublishSubject.create()
         this.setOnClickListener { v ->
-            viewModel.setIsDoewnloading(true)
+            if (parentActity != null) parentActity.showProgressBar()
+           viewModel.setIsDoewnloading(true)
             viewModel.saveDownloadedTheMovie(parentActity,1,"","","")
 
          }

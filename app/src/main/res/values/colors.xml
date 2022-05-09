@@ -11,4 +11,5 @@
     <color name="start_button">#49a7cc</color>
     <color name="gray">#bdbdbd</color>
     <color name="dark_opacity">#A6000000</color>
+    <color name="gray_opacity">#A6bdbdbd</color>
 </resources>
