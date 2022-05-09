@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolbarWithSubtitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?actionBarSize</item>
+        <item name="android:background">@color/principal_color_app</item>
+        <item name="navigationIcon">@drawable/ic_material_arrow_back_24</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="elevation">@dimen/dimen_5dp</item>
+    </style>
+</resources>

@@ -10,4 +10,5 @@
     <color name="principal_color_app">#58a5f0</color>
     <color name="start_button">#49a7cc</color>
     <color name="gray">#bdbdbd</color>
+    <color name="dark_opacity">#A6000000</color>
 </resources>

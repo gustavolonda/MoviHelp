@@ -2,12 +2,14 @@ package com.iverno.gustavo.movihelp.view.fragments
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,13 +18,14 @@ import com.iverno.gustavo.movihelp.R
 import com.iverno.gustavo.movihelp.bo.StatusResponseDomain
 import com.iverno.gustavo.movihelp.bo.StatusResponseDomain.SUCCESSFUL
 import com.iverno.gustavo.movihelp.config.Constants
+import com.iverno.gustavo.movihelp.data.TheMovieDBItemListener
 import com.iverno.gustavo.movihelp.data.TheMoviedbItem
 import com.iverno.gustavo.movihelp.databinding.FragmentHomeBinding
 import com.iverno.gustavo.movihelp.db.AppDatabase
-import com.iverno.gustavo.movihelp.util.QueryGenerator
 import com.iverno.gustavo.movihelp.view.adapters.TheMovieDBItemDetailAdapter
 import com.iverno.gustavo.movihelp.viewmodel.TheMovieDBViewModel
 import com.iverno.gustavo.movihelp.view.activities.MainActivity
+import com.iverno.gustavo.movihelp.view.activities.TheMovieDBItemDetailsActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
@@ -33,7 +36,7 @@ import java.util.concurrent.TimeUnit
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), TheMovieDBItemListener {
     private lateinit var parentActity: MainActivity
     private lateinit var binding: FragmentHomeBinding
     private var theMivieDBType:Array<String> = emptyArray()
@@ -46,22 +49,29 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater,container, false)
+
+        return binding.root
+    }
+
+    override fun onActivityCreated(bundle: Bundle?) {
+        super.onActivityCreated(bundle)
+
         // access the items of the list
         theMivieDBType               = resources.getStringArray(R.array.the_movie_type)
         binding.spinnerType.adapter  = ArrayAdapter(parentActity,
-                                                    android.R.layout.simple_spinner_item,
-                                                    theMivieDBType)
+            android.R.layout.simple_spinner_item,
+            theMivieDBType)
 
         theMivieDBCategory               = resources.getStringArray(R.array.the_movie_category)
 
         binding.spinnerCategory.adapter  = ArrayAdapter(parentActity,
-                                                    android.R.layout.simple_spinner_item,
-                                                    theMivieDBCategory)
+            android.R.layout.simple_spinner_item,
+            theMivieDBCategory)
 
         var dataBaseInstance = AppDatabase.getDatabasenIstance(parentActity)
         viewModel?.setInstanceOfDb(dataBaseInstance)
         observerViewModel()
-        theMovieDBItemDetailAdapter = TheMovieDBItemDetailAdapter()
+        theMovieDBItemDetailAdapter = TheMovieDBItemDetailAdapter(this)
         binding.recyclerview.adapter = theMovieDBItemDetailAdapter
         binding.swipeToRefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
             override fun onRefresh() {
@@ -70,9 +80,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-
-
-        return binding.root
     }
 
     companion object {
@@ -195,6 +202,15 @@ class HomeFragment : Fragment() {
 
             binding.swipeToRefresh.isRefreshing = false
         })
+    }
+
+    override fun onClick(theMoviedbItem: TheMoviedbItem) {
+
+        val intent = Intent(parentActity, TheMovieDBItemDetailsActivity::class.java)
+        var parms =  Bundle()
+        parms.putInt(TheMovieDBItemDetailsFragment.ID_THE_MOVIE_ITEM, theMoviedbItem.id);
+        intent.putExtra(TheMovieDBItemDetailsFragment.PARAMS,parms)
+        startActivity(intent)
     }
 
 }

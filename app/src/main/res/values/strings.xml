@@ -6,12 +6,16 @@
     <string name="movie">Movie</string>
     <string name="type_movie">Type:</string>
     <string name="popularity">162.188</string>
+    <string name="popularity_title">Popularity</string>
     <string name="popularity_two_point">Popularity:</string>
     <string name="vote_average_two_point">Vote Average:</string>
+    <string name="vote_average_title">Vote Average</string>
     <string name="vote_average">7.2</string>
     <string name="title">Title</string>
     <string name="category">Category</string>
     <string name="text_search_help">Title, Description</string>
+    <string name="description">Description</string>
+    <string name="description_value">When bitten by a genetically modified spider, a nerdy, shy, and awkward high school student gains spider-like abilities that he eventually must use to fight evil as a superhero after tragedy befalls his family. Based on Marvel Comics\' superhero character, this is a story of Peter Parker who is a nerdy high-schooler.</string>
     <string-array name="the_movie_type">
         <item>All</item>
         <item>Movie</item>

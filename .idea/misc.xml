@@ -6,9 +6,11 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/ic_error_24.xml" value="0.108" />
         <entry key="app/src/main/res/drawable/search_border.xml" value="0.117" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.31994818652849744" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_the_movie_dbitem_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_start_app.xml" value="0.10804597701149425" />
+        <entry key="app/src/main/res/layout/fragment_the_movie_d_b_item_details.xml" value="0.22" />
         <entry key="app/src/main/res/layout/layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item_the_movie_detail.xml" value="0.23118279569892472" />
       </map>
@@ -19,5 +21,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>

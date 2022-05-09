@@ -23,6 +23,9 @@ import androidx.room.RawQuery
     @Query("SELECT * FROM ${THE_MOVIE_DB_ITEM_TABLE_NAME}")
     fun getAllRecords(): Single<List<TheMoviedbItem>>
 
+    @Query("SELECT * FROM ${THE_MOVIE_DB_ITEM_TABLE_NAME} WHERE ${TheMoviedbItem.ID} =:id ")
+    fun getById(id:Int): Single<TheMoviedbItem>
+
     @Delete
     fun deleteTheMoviedbItem(movie:TheMoviedbItem) : Completable
 

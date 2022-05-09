@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 import com.iverno.gustavo.movihelp.config.Constants.THE_MOVIE_DB_ITEM_TABLE_NAME
 import com.iverno.gustavo.movihelp.config.Constants.IMAGE_BASE_URL
 @Entity(tableName = THE_MOVIE_DB_ITEM_TABLE_NAME)
-data class TheMoviedbItem(@PrimaryKey @SerializedName("id")            val id: Int,
+data class TheMoviedbItem(@PrimaryKey @SerializedName(ID)            val id: Int,
                           @ColumnInfo(name = TITLE)  @SerializedName(TITLE)           val title: String,
                           @ColumnInfo(name = NAME)   @SerializedName(NAME)             val name: String,
                           @ColumnInfo(name = POSTER_PATH) @SerializedName(POSTER_PATH)   val posterPath: String?,
@@ -48,6 +48,7 @@ data class TheMoviedbItem(@PrimaryKey @SerializedName("id")            val id: I
         return popularity.toString()
     }
     companion object {
+        const val  ID           = "id"
         const val  TITLE        = "title"
         const val  NAME         = "name"
         const val  DESCRIPTION  = "description"

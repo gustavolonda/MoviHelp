@@ -20,7 +20,6 @@ class TheMovieDBViewModel : ViewModel(){
     protected val compositeDisposable = CompositeDisposable()
     private var dataBaseInstance: AppDatabase?= null
     private var theMovieDBLiveData : MutableLiveData<TheMovieDBListViewModelResponse>? = null
-    private lateinit var subscription: Disposable
     private  var typeSearch: String = ""
     private  var textSearch: String = ""
     private  var categorySearch: String = ""

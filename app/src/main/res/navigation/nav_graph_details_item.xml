@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_details_item"
+    app:startDestination="@id/theMovieDBItemDetailsFragment">
+
+    <fragment
+        android:id="@+id/theMovieDBItemDetailsFragment"
+        android:name="com.iverno.gustavo.movihelp.view.fragments.TheMovieDBItemDetailsFragment"
+        android:label="fragment_the_movie_d_b_item_details"
+        tools:layout="@layout/fragment_the_movie_d_b_item_details" />
+</navigation>

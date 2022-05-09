@@ -6,6 +6,10 @@
         <variable
             name="mViewModel"
             type="com.iverno.gustavo.movihelp.data.TheMoviedbItem" />
+        <variable
+            name="mListener"
+            type="com.iverno.gustavo.movihelp.data.TheMovieDBItemListener" />
+
     </data>
     <LinearLayout
         android:id="@+id/listMode1"
@@ -20,6 +24,9 @@
             android:layout_marginBottom="@dimen/dimen_5dp"
             android:layout_marginStart="@dimen/dimen_10dp"
             android:layout_marginEnd="@dimen/dimen_10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> mListener.onClick(mViewModel)}"
             app:cardElevation="6dp">
 
             <LinearLayout
